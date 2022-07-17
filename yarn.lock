@@ -742,7 +742,7 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@mui/material@^5.0.0":
+"@mui/material@^5.0.0", "@mui/material@^5.9.0":
   "integrity" "sha512-KZN3QEeCtwSP1IRpDZ7KQghDX7tyxZojADRCn+UKnoq8HUGNMJm2XKdb7hy9/ybaSW4EXQSKXSGg1AjdfS7Cdg=="
   "resolved" "https://registry.npmjs.org/@mui/material/-/material-5.9.0.tgz"
   "version" "5.9.0"
