@@ -5,8 +5,8 @@ export default function Publish() {
     return(
         <>
         <Dashboard />
-        <div className={styles.Publish}>
-            
+        <div className={styles.publish}>
+            <form></form>
         </div>
         </>
     )

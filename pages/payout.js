@@ -1,12 +1,18 @@
-import Dashboard from "./dashboard"
-import styles from "../styles/dashboard.module.scss"
+import Dashboard from "./dashboard";
+import styles from "../styles/dashboard.module.scss";
+import { useState } from "react";
 
 export default function Payout() {
-    return(
+    const [Earnings, setEarnings] = useState(0);
+    const [ItemsSold, setItemsSold] = useState(0);
+
+    return (
         <>
-        <div className="">
             <Dashboard />
-        </div>
+            <div className={styles.payout}>
+                <h2>Total Earned: ${Earnings}</h2>
+                <h2>Total ebooks sold: {ItemsSold}</h2>
+            </div>
         </>
-    )
+    );
 }
