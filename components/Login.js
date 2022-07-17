@@ -10,6 +10,8 @@ export default function Login(){
     const [LoggedIn, setLoggedIn] = useState(false);
     const [DefaultAddress, setDefaultAddress] = useState();
 
+
+
     const handleLogin = async () => {
         if (typeof window !== 'undefined'){;
             if (window.ethereum){
@@ -17,6 +19,8 @@ export default function Login(){
                 .then(result => {
                     setDefaultAddress(result[0]);
                     setLoggedIn(true);
+                    // window.localStorage.setItem('address', DefaultAddress);
+                    document.getElementById("account").innerHTML = DefaultAddress ;
                 })
             }
         }
@@ -25,7 +29,6 @@ export default function Login(){
     return(
         <div className={styles.login}>
             {LoggedIn ? <AccountCircleIcon onClick={handleLogin}/> : <LoginIcon onClick={handleLogin}/>}
-            <p className={styles.address}>{DefaultAddress}</p>
         </div>
     )
 }
