@@ -5,7 +5,7 @@ export default function Store() {
     return (
         <>
             <Navbar />
-            <div className={styles.store}>store</div>
+            <div className="">store</div>
         </>
     );
 }
