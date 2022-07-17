@@ -9,7 +9,7 @@ export default function Dashboard(){
 
     useEffect(() => {
         setAddress(window.localStorage.getItem('address'));
-    })
+    }, [])
 
     return(
         <>
