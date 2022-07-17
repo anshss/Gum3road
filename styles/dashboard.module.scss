@@ -1,4 +1,22 @@
 .dashboard{
     background-color:cornflowerblue;
-    height: 100vh;
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.address{
+    padding: 3rem;
+    align-self: center;
+}
+.btngrp{
+    align-self: center;
+    display: flex;
+    h2{
+        border: 2px solid black;
+        padding: 1rem 2.4rem;
+        margin: 0.4rem;
+        font-size: 1.2rem;
+    }
 }

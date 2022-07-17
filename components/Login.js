@@ -8,7 +8,7 @@ import {ethers} from 'ethers';
 
 export default function Login(){
     const [LoggedIn, setLoggedIn] = useState(false);
-    const [DefaultAddress, setDefaultAddress] = useState();
+    const [DefaultAddress, setDefaultAddress] = useState('');
 
 
 
@@ -19,8 +19,7 @@ export default function Login(){
                 .then(result => {
                     setDefaultAddress(result[0]);
                     setLoggedIn(true);
-                    // window.localStorage.setItem('address', DefaultAddress);
-                    document.getElementById("account").innerHTML = DefaultAddress ;
+                    window.localStorage.setItem('address', result[0]);
                 })
             }
         }

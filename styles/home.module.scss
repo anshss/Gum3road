@@ -2,7 +2,6 @@
     background-color: black;
     color: white;
     height: 10vh;
-    width: 100vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,7 +21,6 @@
 .first {
   background-color: antiquewhite;
   height: 90vh;
-  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,9 +50,36 @@
 }
 
 .second {
-  height: 90vh;
+  height: 100vh;
+  background-color:coral;
+  color: white;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+
+  h2{
+    padding: 4rem;
+    font-size: 2.4rem;
+    align-self: center;
+  }
+
+  p{
+    font-size: 1.4rem;
+    padding: 1.5rem 4rem;
+  }
+  
 }
 
 .footer{ 
-  height : 30vh;
+  height : 20vh;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+
+  p{
+    padding: 0.5rem;
+  }
 }
