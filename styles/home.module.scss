@@ -2,41 +2,45 @@
     background-color: black;
     color: white;
     height: 10vh;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0rem 4rem;
+    z-index: 999;
+    position: fixed;
 
     .rightsect{
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
       align-items: center;
-      min-width: 30vw;
+      width: 40vw;
     }
     .address{
       display: none;
     }
   }
 
+
 .first {
   background-color: antiquewhite;
-  height: 90vh;
+  min-height: 100vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0rem 8rem;
+  padding: 20vh 0rem 8rem 8rem;
 
   section{
     justify-content: center;
     align-items: center;
-    width: 40vw;
+    max-width: 40vw;
     
     h1{
       margin-bottom: 5rem;
       font-size: 5rem;
     }
     p{
-      font-size: 1.3rem;
+      font-size: 1.4rem;
     }
 
     .btn{
@@ -44,21 +48,36 @@
       background-color: transparent;
       align-self: flex-end;
       padding: 0.4rem 2rem;
-      margin: 4rem 0rem 0rem 30vw;
+      margin: 4rem 4rem 0rem 30vw;
+    }
+  }
+  @media only screen and (max-width: 667px) {
+    section{
+      width: auto;
+    }
+    h1{
+      font-size: 2rem;
+      align-self: flex-start;
+    }
+    .btn{
+      font-size: 1.2rem;
+      align-self: center;
     }
   }
 }
 
+
 .second {
-  height: 100vh;
+  min-height: 100vh;
   background-color:coral;
   color: white;
   display: flex;
   align-content: center;
   flex-direction: column;
+  padding: 4rem 0;
 
   h2{
-    padding: 4rem;
+    padding: 0rem 4rem 4rem 4rem;
     font-size: 2.4rem;
     align-self: center;
   }
@@ -67,11 +86,11 @@
     font-size: 1.4rem;
     padding: 1.5rem 4rem;
   }
-  
 }
 
+
 .footer{ 
-  height : 20vh;
+  min-height : 20vh;
   background-color: black;
   color: white;
   display: flex;

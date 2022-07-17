@@ -4,13 +4,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {ethers} from 'ethers';
 
-
-
 export default function Login(){
     const [LoggedIn, setLoggedIn] = useState(false);
     const [DefaultAddress, setDefaultAddress] = useState('');
-
-
 
     const handleLogin = async () => {
         if (typeof window !== 'undefined'){;
