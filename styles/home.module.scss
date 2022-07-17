@@ -1,0 +1,60 @@
+.nav{
+    background-color: black;
+    color: white;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 4rem;
+
+    .rightsect{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      min-width: 30vw;
+    }
+    .address{
+      display: none;
+    }
+  }
+
+.first {
+  background-color: antiquewhite;
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem 8rem;
+
+  section{
+    justify-content: center;
+    align-items: center;
+    width: 40vw;
+    
+    h1{
+      margin-bottom: 5rem;
+      font-size: 5rem;
+    }
+    p{
+      font-size: 1.3rem;
+    }
+
+    .btn{
+      font-size: 1.6rem;
+      background-color: transparent;
+      align-self: flex-end;
+      padding: 0.4rem 2rem;
+      margin: 4rem 0rem 0rem 30vw;
+    }
+  }
+}
+
+.second {
+  height: 90vh;
+}
+
+.footer{ 
+  height : 30vh;
+}
