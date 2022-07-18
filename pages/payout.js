@@ -10,8 +10,8 @@ export default function Payout() {
         <>
             <Dashboard />
             <div className={styles.payout}>
-                <h2>Payout earned:&nbsp;&nbsp;${Earnings}</h2>
-                <h2>Ebooks purchased:&nbsp;&nbsp;{ItemsSold}</h2>
+                <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
+                <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2>
             </div>
         </>
     );

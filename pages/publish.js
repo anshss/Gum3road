@@ -23,7 +23,7 @@ export default function Publish() {
                     <input name="price" placeholder="Matic" required/>
                     <label>Cover image</label>
                     <input type="file" name="coverimg" required/>
-                    <input type="submit" className={styles.submitbtn} />
+                    <input type="submit" className={styles.submitbtn} value="Publish🚀" />
                 </form>
             </div>
         </>

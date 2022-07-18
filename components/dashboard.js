@@ -19,6 +19,7 @@ export default function Dashboard(){
             <div className={styles.btngrp}>
                 <Link href='/publish'><h2>Publish</h2></Link>
                 <Link href='/payout'><h2>Payout</h2></Link>
+                <Link href='/inventory'><h2>Inventory</h2></Link>
             </div>
         </div>
         </>
