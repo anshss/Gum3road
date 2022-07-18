@@ -1,4 +1,4 @@
-import Dashboard from "./dashboard";
+import Dashboard from "../components/dashboard";
 import styles from "../styles/dashboard.module.scss";
 import { useState } from "react";
 
@@ -10,8 +10,8 @@ export default function Payout() {
         <>
             <Dashboard />
             <div className={styles.payout}>
-                <h2>Total Earned: ${Earnings}</h2>
-                <h2>Total ebooks sold: {ItemsSold}</h2>
+                <h2>Payout earned:&nbsp;&nbsp;${Earnings}</h2>
+                <h2>Ebooks purchased:&nbsp;&nbsp;{ItemsSold}</h2>
             </div>
         </>
     );

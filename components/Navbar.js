@@ -8,7 +8,7 @@ export default function Navbar() {
             <Link href='/'><h2>Gum3road</h2></Link>
             <div className={styles.rightsect}>
             <Link href='/store'><h3>Store</h3></Link>
-            <Link href='/dashboard'><h3>Dashboard</h3></Link>
+            <Link href='/publish'><h3>Dashboard</h3></Link>
             <Login />
             </div>
         </div>

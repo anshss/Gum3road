@@ -1,5 +1,5 @@
 import styles from '../styles/dashboard.module.scss'
-import Navbar from '../components/Navbar'
+import Navbar from './Navbar'
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
 
