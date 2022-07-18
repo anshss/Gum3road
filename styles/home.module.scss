@@ -25,6 +25,7 @@
 .first {
   background-color: #ff90e8;
   min-height: 100vh;
+  min-width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,15 +52,16 @@
       margin: 4rem 4rem 0rem 30vw;
     }
   }
-
+  
   sidebar{
     align-items: center;
     justify-content: center;
   }
 
+
   @media only screen and (max-width: 667px) {
     section{
-      width: auto;
+      width: 100%;
     }
     h1{
       font-size: 2rem;
