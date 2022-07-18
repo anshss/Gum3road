@@ -23,7 +23,7 @@
 
 
 .first {
-  background-color: antiquewhite;
+  background-color: #ff90e8;
   min-height: 100vh;
   display: flex;
   justify-content: space-between;
@@ -51,6 +51,12 @@
       margin: 4rem 4rem 0rem 30vw;
     }
   }
+
+  sidebar{
+    align-items: center;
+    justify-content: center;
+  }
+
   @media only screen and (max-width: 667px) {
     section{
       width: auto;
@@ -67,9 +73,9 @@
 }
 
 
-.second {
+.second, .third {
   min-height: 100vh;
-  background-color:coral;
+  background-color:#ffc900;
   color: white;
   display: flex;
   align-content: center;
@@ -86,6 +92,10 @@
     font-size: 1.4rem;
     padding: 1.5rem 4rem;
   }
+}
+
+.third{
+  background-color: #23a094;
 }
 
 

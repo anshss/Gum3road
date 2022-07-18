@@ -1,6 +1,7 @@
 import styles from '../styles/home.module.scss'
-import Illustration from '../public/ebook.jpg'
 import Link from 'next/link'
+import Image from 'next/image'
+
 export default function First(){
     return(
         <div className={styles.first}>
@@ -10,7 +11,7 @@ export default function First(){
             <Link href='/store'><button className={styles.btn}>Store</button></Link>
         </section>
         <sidebar>
-            {/* {Illustration} */}
+            {/* <Image src="/ebooks2.png" width={520} height={520} /> */}
         </sidebar>
         </div>
     )
