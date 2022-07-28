@@ -1,5 +1,4 @@
 import styles from '../styles/dashboard.module.scss'
-import Navbar from './Navbar'
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
 
@@ -13,7 +12,6 @@ export default function Dashboard(){
 
     return(
         <>
-            <Navbar />
         <div className={styles.dashboard}>
             <h1 className={styles.address}> Address: {address} </h1>
             <div className={styles.btngrp}>

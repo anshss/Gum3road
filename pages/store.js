@@ -1,11 +1,14 @@
-// import styles from '../styles/store.module.scss'
+import styles from '../styles/store.module.scss'
 import Navbar from "../components/Navbar";
+import Card from '../components/Card'
 
 export default function Store() {
     return (
         <>
-            <Navbar />
-            <div className="">store</div>
+            <div className={styles.store}>
+                store
+                <Card />
+            </div>
         </>
     );
 }

@@ -1,35 +1,11 @@
-.nav{
-    background-color: black;
-    color: white;
-    height: 10vh;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0rem 4rem;
-    z-index: 999;
-    position: fixed;
-
-    .rightsect{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 40vw;
-    }
-    .address{
-      display: none;
-    }
-  }
-
-
 .first {
   background-color: #ec90d9;
   min-height: 100vh;
   min-width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 20vh 0rem 8rem 8rem;
+  padding-top: 10vh;
 
   section{
     justify-content: center;

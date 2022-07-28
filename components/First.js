@@ -11,7 +11,7 @@ export default function First(){
             <Link href='/store'><button className={styles.btn}>Store</button></Link>
         </section>
         <sidebar>
-            {/* <Image src="/ebook.png" width={520} height={520} /> */}
+            {/* <Image src="/ebook2.png" width={300} height={300} /> */}
         </sidebar>
         </div>
     )

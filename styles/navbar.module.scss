@@ -1,0 +1,22 @@
+.nav{
+    background-color: black;
+    color: white;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 4rem;
+    z-index: 999;
+    position: fixed;
+
+    .rightsect{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 40vw;
+    }
+    .address{
+      display: none;
+    }
+  }
