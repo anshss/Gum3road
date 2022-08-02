@@ -1,5 +1,9 @@
+$bg1: #6976d9;
+$bg2: rgb(31, 31, 31);
+$bg3: rgb(31, 31, 31);
+
 .first {
-  background-color: #ec90d9;
+  background-color: $bg1;
   min-height: 100vh;
   min-width: 100%;
   display: flex;
@@ -21,12 +25,15 @@
     }
 
     .btn{
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       background-color: transparent;
       align-self: flex-end;
       padding: 0.4rem 2rem;
       margin: 4rem 4rem 0rem 30vw;
-    }
+      background-color: #000;
+      color: #fff;
+      border-radius: 0.1rem;
+}
   }
   
   sidebar{
@@ -53,7 +60,7 @@
 
 .second, .third {
   min-height: 100vh;
-  background-color:#ffc900;
+  background-color: $bg2;
   color: white;
   display: flex;
   align-content: center;
@@ -73,14 +80,14 @@
 }
 
 .third{
-  background-color: #23a094;
+  background-color: $bg3;
 }
 
 
 .footer{ 
-  min-height : 20vh;
-  background-color: black;
-  color: white;
+  min-height : 18vh;
+  background-color: #000;
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -89,4 +96,8 @@
   p{
     padding: 0.5rem;
   }
+}
+
+.btn{
+  
 }

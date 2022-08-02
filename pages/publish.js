@@ -1,30 +1,126 @@
-import Dashboard from "../components/dashboard";
+import { ethers } from "ethers";
+import { create as ipfsHttpClient } from 'ipfs-http-client'
+import { useRouter } from 'next/router'
+import { useState } from "react";
+import web3modal from 'web3modal'
+import Dashboard from "../components/Dashboard";
 import styles from "../styles/dashboard.module.scss";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
+import { contractAddress } from "../config.js"
+import Gum3road from '../artifacts/contracts/Gum3road.sol/Gum3road.json'
 
 export default function Publish() {
+
+    const [formInput, setFormInput] = useState({
+        name: "",
+        price: "",
+        cover: null,
+        file: null,
+    });
+
+    const [files, setFiles] = useState({
+        cover: null,
+        file: null
+    })
+
+    const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
+
+    const router = useRouter();
+
+
+
+    async function handleFile(e) {
+        const file = e.target.files[0];
+        const name = e.target.name;
+        const added = await client.add(file);
+        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+        setFormInput({...formInput, [name]: url});
+    }
+    
+    async function metadata(){
+        const { name, price, cover, file } = formInput;
+        if(!name || !price || !cover || !file) return;
+        const data = JSON.stringify({name, cover, file});
+        const added = await client.add(data);
+        const metaUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
+        return metaUrl;
+    }
+    
+    async function uploadToIpfs(e) {
+        e.preventDefault();
+        const modal = new web3modal();
+        const connection = await modal.connect();
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        const url = await metadata();
+        const price = ethers.utils.parseUnits(formInput.price, 'ether')
+        const contract = new ethers.Contract(contractAddress, Gum3road.abi, signer);
+        const publish = await contract.createToken(metadata, price, 10, {
+            gasLimit: 100000000
+            // nonce: nonce || undefined,
+        });
+        await publish.wait();
+        
+        console.log(url)
+        // router.push('/');
+    }
+
+    async function conso(){
+        const test = await metadata();
+        console.log(formInput, contractAddress);
+    }
+
+
     return (
         <>
             <Dashboard />
             <div className={styles.publish}>
                 <form>
                     <label>Item Name</label>
-                    <input name="name" required/>
+                    <input
+                        name="name"
+                        required
+                        onChange={(e) =>
+                            setFormInput({ ...formInput, name: e.target.value })
+                        }
+                    />
                     <label>Product</label>
                     <select name="product">
                         <option value="eBook">eBook</option>
                     </select>
                     <label>Price</label>
-                    <input name="price" placeholder="Matic" required/>
+                    <input
+                        name="price"
+                        placeholder="Matic"
+                        required
+                        onChange={(e) =>
+                            setFormInput({
+                                ...formInput,
+                                price: e.target.value,
+                            })
+                        }
+                    />
                     <label>Cover image</label>
-                    <input type="file" name="coverimg" required/>
-                    <input type="submit" className={styles.submitbtn} value="Publish🚀" />
+                    <input
+                        type="file"
+                        name="cover"
+                        required
+                        onChange={handleFile}
+                    />
+                    <input
+                        type="file"
+                        name="file"
+                        required
+                        onChange={handleFile}
+                    />
+                    <input
+                        type="submit"
+                        className={styles.submitbtn}
+                        value="Publish🚀"
+                        onClick={uploadToIpfs}
+                    />
                 </form>
+                <button onClick={conso}>click my ass</button>
             </div>
         </>
     );

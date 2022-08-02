@@ -32,14 +32,23 @@ export default function Inventory() {
             supply: 98,
             tokenId: 4,
             img: './peakpx.jpg'
+        },
+        {
+            name: 'aa',
+            price: 5,
+            supply: 98,
+            tokenId: 4,
+            img: './peakpx.jpg'
         }
     ]);
+
+    console.log(nfts[2].name);
 
     return (
         <>
             <Dashboard />
             <div className={styles.inventory}>
-                <h2>You own {nfts.length} eBooks</h2>
+                <h2>You have listed {nfts.length} eBooks</h2>
             </div>
             <div>
                 {nfts.map((nft, i) =>

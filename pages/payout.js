@@ -1,4 +1,4 @@
-import Dashboard from "../components/dashboard";
+import Dashboard from "../components/Dashboard";
 import styles from "../styles/dashboard.module.scss";
 import { useState } from "react";
 
