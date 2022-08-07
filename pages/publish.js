@@ -17,11 +17,6 @@ export default function Publish() {
         file: null,
     });
 
-    const [files, setFiles] = useState({
-        cover: null,
-        file: null
-    })
-
     const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
     const router = useRouter();
@@ -31,18 +26,26 @@ export default function Publish() {
     async function handleFile(e) {
         const file = e.target.files[0];
         const name = e.target.name;
-        const added = await client.add(file);
-        const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-        setFormInput({...formInput, [name]: url});
+        try {
+            const added = await client.add(file);
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            setFormInput({...formInput, [name]: url});
+        } catch (error) {
+            console.log('Error uploading:', error)
+        }
     }
     
     async function metadata(){
         const { name, price, cover, file } = formInput;
         if(!name || !price || !cover || !file) return;
-        const data = JSON.stringify({name, cover, file});
-        const added = await client.add(data);
-        const metaUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
-        return metaUrl;
+        try {
+            const data = JSON.stringify({name, cover, file});
+            const added = await client.add(data);
+            const metaUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
+            return metaUrl;
+        } catch (error) {
+            console.log('Error uploading:', error)
+        }
     }
     
     async function uploadToIpfs(e) {
@@ -51,17 +54,23 @@ export default function Publish() {
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
+        try {
+            const url = await metadata();
+            const price = ethers.utils.parseUnits(formInput.price, 'ether')
+            const contract = new ethers.Contract(contractAddress, Gum3road.abi, signer);
+            const publish = await contract.createToken(metadata, price, 10, {
+                gasLimit: 1000000
+                // nonce: nonce || undefined,
+            });
+            await publish.wait();
+            
+            console.log(url)
+            
+        } catch (error) {
+            console.log(error.message)
+            console.log(error)
+        }
 
-        const url = await metadata();
-        const price = ethers.utils.parseUnits(formInput.price, 'ether')
-        const contract = new ethers.Contract(contractAddress, Gum3road.abi, signer);
-        const publish = await contract.createToken(metadata, price, 10, {
-            gasLimit: 100000000
-            // nonce: nonce || undefined,
-        });
-        await publish.wait();
-        
-        console.log(url)
         // router.push('/');
     }
 
@@ -107,6 +116,7 @@ export default function Publish() {
                         required
                         onChange={handleFile}
                     />
+                    <label>Upload file</label>
                     <input
                         type="file"
                         name="file"
@@ -120,7 +130,7 @@ export default function Publish() {
                         onClick={uploadToIpfs}
                     />
                 </form>
-                <button onClick={conso}>click my ass</button>
+                    <button onClick={conso}>Click me</button>
             </div>
         </>
     );

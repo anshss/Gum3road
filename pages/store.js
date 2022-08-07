@@ -118,7 +118,6 @@ export default function Store() {
                 {books.map((book, i) =>
                 <Card key={i} img={book.cover} name={book.name} price= {book.price} supplyLeft={book.supplyLeft} tokenId={book.tokenId}/>
                 )}
-                <button onClick={conso}>Click my ass</button>
             </div>
         </>
     );

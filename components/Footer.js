@@ -7,7 +7,6 @@ export default function Footer(){
             <h1>Gum3road</h1>
             <div className={styles.mails}>
                 <Link href="mailto:anshspvt@gmail.com"><p><img src="mail(24x24)@2x.png" /><span>&nbsp;anshspvt@gmail.com</span></p></Link>
-                <Link href="mailto:thisguy@gmail.com<"><p><img src="mail(24x24)@2x.png" /><span>&nbsp;thisguy@gmail.com</span></p></Link>
             </div>
             <div></div>
         </div>

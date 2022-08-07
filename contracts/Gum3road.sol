@@ -4,12 +4,12 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Receiver.sol";
 
-contract Gum3road is ERC1155URIStorage{
-
+contract Gum3road is ERC1155URIStorage, ERC1155Receiver {
     address payable owner;
-    
-    constructor() ERC1155(""){
+
+    constructor() ERC1155("") {
         owner = payable(msg.sender);
     }
 
@@ -25,11 +25,56 @@ contract Gum3road is ERC1155URIStorage{
         uint256 supplyleft;
     }
 
-    event ebookCreated( uint256 indexed tokenId, address owner, address creator, uint256 price, uint256 supply, uint supplyleft);
+    event ebookCreated(
+        uint256 indexed tokenId,
+        address owner,
+        address creator,
+        uint256 price,
+        uint256 supply,
+        uint256 supplyleft
+    );
 
-    mapping (uint256 => ebook) idToEbook;
+    mapping(uint256 => ebook) idToEbook;
 
-    function createToken(string memory tokenURI, uint256 supply, uint256 price) public payable {
+    // ------------
+
+    function onERC1155Received(
+        address operator,
+        address from,
+        uint256 id,
+        uint256 value,
+        bytes calldata data
+    ) external override returns (bytes4) {
+        this.onERC1155BatchReceived.selector;
+    }
+
+    function onERC1155BatchReceived(
+        address operator,
+        address from,
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        bytes calldata data
+    ) external override returns (bytes4) {
+        this.onERC1155BatchReceived.selector;
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC1155, ERC1155Receiver)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+
+    // ------------
+
+    function createToken(
+        string memory tokenURI,
+        uint256 supply,
+        uint256 price
+    ) public payable {
         _tokenId.increment();
         uint256 currentToken = _tokenId.current();
         _mint(msg.sender, currentToken, supply, "");
@@ -37,7 +82,11 @@ contract Gum3road is ERC1155URIStorage{
         createEbook(currentToken, supply, price);
     }
 
-    function createEbook(uint tokenId, uint supply, uint price) private {
+    function createEbook(
+        uint256 tokenId,
+        uint256 supply,
+        uint256 price
+    ) private {
         idToEbook[tokenId] = ebook(
             tokenId,
             payable(address(this)),
@@ -49,10 +98,17 @@ contract Gum3road is ERC1155URIStorage{
 
         _safeTransferFrom(msg.sender, address(this), tokenId, supply, "");
 
-        emit ebookCreated (tokenId, address(this), msg.sender, price, supply, supply);
+        emit ebookCreated(
+            tokenId,
+            address(this),
+            msg.sender,
+            price,
+            supply,
+            supply
+        );
     }
 
-    function createSale(uint tokenId) public payable {
+    function createSale(uint256 tokenId) public payable {
         uint256 price = idToEbook[tokenId].price;
         require(msg.value == price);
         require(idToEbook[tokenId].supplyleft >= idToEbook[tokenId].supply);
@@ -63,7 +119,7 @@ contract Gum3road is ERC1155URIStorage{
 
         uint256 fee = 0.00029 ether;
         uint256 remaining = price - fee;
-        
+
         payable(idToEbook[tokenId].creator).transfer(remaining);
         payable(owner).transfer(fee);
     }
@@ -71,31 +127,32 @@ contract Gum3road is ERC1155URIStorage{
     function fetchStore() public view returns (ebook[] memory) {
         ebook[] memory unsoldBooks;
         uint32 counter = 0;
-        for(uint32 i=0; i<_tokenId.current(); i++){
-            if(idToEbook[i].supplyleft > 0){
+        for (uint32 i = 0; i < _tokenId.current(); i++) {
+            if (idToEbook[i].supplyleft > 0) {
                 unsoldBooks[counter] = idToEbook[i];
-                counter++ ;
+                counter++;
             }
         }
         return unsoldBooks;
     }
-    function fetchInventory() public view returns (ebook[] memory){
+
+    function fetchInventory() public view returns (ebook[] memory) {
         ebook[] memory myBooks;
         uint32 counter = 0;
-        for(uint32 i=0; i<_tokenId.current(); i++){
-            if(idToEbook[i].owner == msg.sender){
+        for (uint32 i = 0; i < _tokenId.current(); i++) {
+            if (idToEbook[i].owner == msg.sender) {
                 myBooks[counter] = idToEbook[i];
                 counter++;
             }
-
         }
         return myBooks;
     }
-    function fetchMyListings() public view returns (ebook[] memory){
+
+    function fetchMyListings() public view returns (ebook[] memory) {
         ebook[] memory myListedBooks;
         uint32 counter = 0;
-        for(uint32 i=0; i<_tokenId.current(); i++){
-            if(idToEbook[i].creator == msg.sender){
+        for (uint32 i = 0; i < _tokenId.current(); i++) {
+            if (idToEbook[i].creator == msg.sender) {
                 myListedBooks[counter] = idToEbook[i];
                 counter++;
             }

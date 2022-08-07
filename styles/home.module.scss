@@ -2,57 +2,63 @@ $bg1: #6976d9;
 $bg2: rgb(31, 31, 31);
 $bg3: rgb(31, 31, 31);
 
-.first {
-  background-color: $bg1;
-  min-height: 100vh;
-  min-width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-top: 10vh;
-
-  section{
-    justify-content: center;
-    align-items: center;
-    max-width: 40vw;
-    
-    h1{
-      margin-bottom: 5rem;
-      font-size: 5rem;
-    }
-    p{
-      font-size: 1.4rem;
-    }
-
-    .btn{
-      font-size: 1.5rem;
-      background-color: transparent;
-      align-self: flex-end;
-      padding: 0.4rem 2rem;
-      margin: 4rem 4rem 0rem 30vw;
-      background-color: #000;
-      color: #fff;
-      border-radius: 0.1rem;
-}
-  }
+.first{
+  background-color: rgb(31, 31, 31);
+  padding: 6rem;
   
-  sidebar{
+  .mainf {
+    border-radius: 3px;
+    background-color: $bg1;
+    min-height: 80vh;
+    min-width: 100%;
+    display: flex;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
-  }
-
-
-  @media only screen and (max-width: 667px) {
+    padding-top: 6vh;
+  
     section{
-      width: 100%;
+      justify-content: center;
+      align-items: center;
+      max-width: 40vw;
+      
+      h1{
+        margin-bottom: 5rem;
+        font-size: 5rem;
+      }
+      p{
+        font-size: 1.4rem;
+      }
+  
+      .btn{
+        font-size: 1.5rem;
+        background-color: transparent;
+        align-self: flex-end;
+        padding: 0.4rem 2rem;
+        margin: 4rem 4rem 0rem 30vw;
+        background-color: #000;
+        color: #fff;
+        border-radius: 0.1rem;
+  }
     }
-    h1{
-      font-size: 2rem;
-      align-self: flex-start;
+    
+    sidebar{
+      align-items: center;
+      justify-content: center;
     }
-    .btn{
-      font-size: 1.2rem;
-      align-self: center;
+  
+  
+    @media only screen and (max-width: 667px) {
+      section{
+        width: 100%;
+      }
+      h1{
+        font-size: 2rem;
+        align-self: flex-start;
+      }
+      .btn{
+        font-size: 1.2rem;
+        align-self: center;
+      }
     }
   }
 }
@@ -65,7 +71,7 @@ $bg3: rgb(31, 31, 31);
   display: flex;
   align-content: center;
   flex-direction: column;
-  padding: 4rem 0;
+  padding: 4rem 6rem;
 
   h2{
     padding: 0rem 4rem 4rem 4rem;
