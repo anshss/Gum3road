@@ -4,9 +4,9 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Receiver.sol";
+import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 
-contract Gum3road is ERC1155URIStorage, ERC1155Receiver {
+contract Gum3road is ERC1155URIStorage, ERC1155Holder {
     address payable owner;
 
     constructor() ERC1155("") {
@@ -36,27 +36,6 @@ contract Gum3road is ERC1155URIStorage, ERC1155Receiver {
 
     mapping(uint256 => ebook) idToEbook;
 
-    // ------------
-
-    function onERC1155Received(
-        address operator,
-        address from,
-        uint256 id,
-        uint256 value,
-        bytes calldata data
-    ) external override returns (bytes4) {
-        this.onERC1155BatchReceived.selector;
-    }
-
-    function onERC1155BatchReceived(
-        address operator,
-        address from,
-        uint256[] calldata ids,
-        uint256[] calldata values,
-        bytes calldata data
-    ) external override returns (bytes4) {
-        this.onERC1155BatchReceived.selector;
-    }
 
     function supportsInterface(bytes4 interfaceId)
         public
@@ -68,7 +47,6 @@ contract Gum3road is ERC1155URIStorage, ERC1155Receiver {
         return super.supportsInterface(interfaceId);
     }
 
-    // ------------
 
     function createToken(
         string memory tokenURI,
@@ -108,6 +86,10 @@ contract Gum3road is ERC1155URIStorage, ERC1155Receiver {
         );
     }
 
+    function transfernewitem(address reciever, uint256 tokenId, uint256 supply) public{
+        _safeTransferFrom(msg.sender, reciever, tokenId, supply, "");
+    }
+
     function createSale(uint256 tokenId) public payable {
         uint256 price = idToEbook[tokenId].price;
         require(msg.value == price);
@@ -126,12 +108,15 @@ contract Gum3road is ERC1155URIStorage, ERC1155Receiver {
 
     function fetchStore() public view returns (ebook[] memory) {
         ebook[] memory unsoldBooks;
-        uint32 counter = 0;
-        for (uint32 i = 0; i < _tokenId.current(); i++) {
-            if (idToEbook[i].supplyleft > 0) {
-                unsoldBooks[counter] = idToEbook[i];
+        uint counter = 0;
+        uint total = _tokenId.current();
+        for (uint i = 0; i < total; i++) {
+            // if (idToEbook[i+1].supplyleft > 0) {
+                uint currentId = i+1;
+                ebook storage currentItem = idToEbook[currentId];
+                unsoldBooks[counter] = currentItem;
                 counter++;
-            }
+            // }
         }
         return unsoldBooks;
     }

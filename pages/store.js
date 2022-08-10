@@ -68,7 +68,7 @@ export default function Store() {
         }
     ]);
 
-    const [testing, setTesting] = useState()
+    const [testing, setTesting] = useState([])
 
 
     const[loaded, setLoaded] = useState(false)
@@ -84,41 +84,39 @@ export default function Store() {
         const signer = provider.getSigner()
         const contract = new ethers.Contract(contractAddress, Gum3road.abi, signer)
         const data = await contract.fetchStore();
-        const books = await Promise.all(data.map(async i => {
-            const tokenURI = await contract.tokenURI(i.tokenId)
-            const meta = await axios.get(tokenURI)
-            let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
-            let book = {
-                price,
-                name: meta.data.name,
-                tokenId: i.tokenId.toNumber(),
-                creator: i.creator,
-                supplyLeft: i.supplyLeft,
-                cover: meta.data.cover,
-                file: meta.data.file,
-            }
-            return book
-        }));
-        setTesting(books);
+        // const books = await Promise.all(data.map(async i => {
+        //     const tokenURI = await contract.tokenURI(i.tokenId)
+        //     const meta = await axios.get(tokenURI)
+        //     let price = ethers.utils.formatEther(i.price.toString())
+        //     let book = {
+        //         price,
+        //         name: meta.data.name,
+        //         tokenId: i.tokenId.toNumber(),
+        //         creator: i.creator,
+        //         supplyLeft: i.supplyLeft,
+        //         cover: meta.data.cover,
+        //         file: meta.data.file,
+        //     }
+        //     return book
+        // }));
+        // setTesting(data);
         setLoaded(true);
 
     }
-    
+
     function conso(){
-        
         console.log(testing)
     }
-
-
 
 
     return (
         <>
             <div className={styles.store}>
-                {books.map((book, i) =>
+                {testing.map((book, i) =>
                 <Card key={i} img={book.cover} name={book.name} price= {book.price} supplyLeft={book.supplyLeft} tokenId={book.tokenId}/>
                 )}
             </div>
+            <button onClick={conso}>Click me </button>
         </>
     );
 }

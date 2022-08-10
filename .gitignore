@@ -44,3 +44,5 @@ typechain-types
 cache
 artifacts
 
+# private key
+.secret

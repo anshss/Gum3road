@@ -1,15 +1,14 @@
 import { ethers } from "ethers";
-import { create as ipfsHttpClient } from 'ipfs-http-client'
-import { useRouter } from 'next/router'
+import { create as ipfsHttpClient } from "ipfs-http-client";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import web3modal from 'web3modal'
+import web3modal from "web3modal";
 import Dashboard from "../components/Dashboard";
 import styles from "../styles/dashboard.module.scss";
-import { contractAddress } from "../config.js"
-import Gum3road from '../artifacts/contracts/Gum3road.sol/Gum3road.json'
+import { contractAddress } from "../config.js";
+import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 
 export default function Publish() {
-
     const [formInput, setFormInput] = useState({
         name: "",
         price: "",
@@ -17,11 +16,11 @@ export default function Publish() {
         file: null,
     });
 
-    const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
+    const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
 
     const router = useRouter();
 
-
+    const [tesh, setTesh] = useState(false);
 
     async function handleFile(e) {
         const file = e.target.files[0];
@@ -29,56 +28,63 @@ export default function Publish() {
         try {
             const added = await client.add(file);
             const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-            setFormInput({...formInput, [name]: url});
+            setFormInput({ ...formInput, [name]: url });
         } catch (error) {
-            console.log('Error uploading:', error)
+            console.log("Error uploading:", error);
         }
     }
-    
-    async function metadata(){
+
+    async function metadata() {
         const { name, price, cover, file } = formInput;
-        if(!name || !price || !cover || !file) return;
+        if (!name || !price || !cover || !file) return;
         try {
-            const data = JSON.stringify({name, cover, file});
+            const data = JSON.stringify({ name, cover, file });
             const added = await client.add(data);
             const metaUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
             return metaUrl;
         } catch (error) {
-            console.log('Error uploading:', error)
+            console.log("Error uploading:", error);
         }
     }
-    
+
     async function uploadToIpfs(e) {
         e.preventDefault();
-        const modal = new web3modal();
-        const connection = await modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
         try {
+            const modal = new web3modal();
+            const connection = await modal.connect();
+            const provider = new ethers.providers.Web3Provider(connection);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(
+                contractAddress,
+                Gum3road.abi,
+                signer
+            );
             const url = await metadata();
-            const price = ethers.utils.parseUnits(formInput.price, 'ether')
-            const contract = new ethers.Contract(contractAddress, Gum3road.abi, signer);
-            const publish = await contract.createToken(metadata, price, 10, {
-                gasLimit: 1000000
+            const price = ethers.utils.parseEther(formInput.price);
+            const publish = await contract.createToken(metadata, 10, price, {
+                gasLimit: 2000000,
                 // nonce: nonce || undefined,
             });
             await publish.wait();
-            
-            console.log(url)
-            
+
+            console.log(url);
+
+            // // ----------
+            // let test = contract.test();
+            // setTesh(test);
+            // // --------
         } catch (error) {
-            console.log(error.message)
-            console.log(error)
+            console.log(error.message);
+            console.log(error);
         }
 
         // router.push('/');
     }
 
-    async function conso(){
+    async function conso() {
         const test = await metadata();
-        console.log(formInput, contractAddress);
+        console.log(formInput);
     }
-
 
     return (
         <>
@@ -130,7 +136,7 @@ export default function Publish() {
                         onClick={uploadToIpfs}
                     />
                 </form>
-                    <button onClick={conso}>Click me</button>
+                <button onClick={conso}>Click me</button>
             </div>
         </>
     );
