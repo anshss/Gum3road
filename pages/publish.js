@@ -1,26 +1,40 @@
 import { ethers } from "ethers";
-import { create as ipfsHttpClient } from "ipfs-http-client";
+const ipfsClient = require("ipfs-http-client");
 import { useRouter } from "next/router";
 import { useState } from "react";
 import web3modal from "web3modal";
 import Dashboard from "../components/Dashboard";
 import styles from "../styles/dashboard.module.scss";
-import { contractAddress } from "../config.js";
+import { contractAddress } from "../address.js";
 import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 
 export default function Publish() {
     const [formInput, setFormInput] = useState({
         name: "",
         price: "",
+        supply: "",
         cover: null,
         file: null,
     });
 
-    const client = ipfsHttpClient("https://ipfs.infura.io:5001/api/v0");
+    // const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
+    const projectId = "2DB9ZIXFdYxkwp4AuXUTKYaShp8";
+    const projectSecret = "d8a5c912b14c963145b64bdc8ab93eea";
+    const auth =
+        "Basic " +
+        Buffer.from(projectId + ":" + projectSecret).toString("base64");
+
+    const client = ipfsClient.create({
+        host: "ipfs.infura.io",
+        port: 5001,
+        protocol: "https",
+        headers: {
+            authorization: auth,
+        },
+    });
 
     const router = useRouter();
 
-    const [tesh, setTesh] = useState(false);
 
     async function handleFile(e) {
         const file = e.target.files[0];
@@ -37,8 +51,8 @@ export default function Publish() {
     async function metadata() {
         const { name, price, cover, file } = formInput;
         if (!name || !price || !cover || !file) return;
+        const data = JSON.stringify({ name, cover, file });
         try {
-            const data = JSON.stringify({ name, cover, file });
             const added = await client.add(data);
             const metaUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
             return metaUrl;
@@ -61,18 +75,19 @@ export default function Publish() {
             );
             const url = await metadata();
             const price = ethers.utils.parseEther(formInput.price);
-            const publish = await contract.createToken(metadata, 10, price, {
-                gasLimit: 2000000,
-                // nonce: nonce || undefined,
-            });
+            const supply = formInput.supply;
+            const publish = await contract.createToken(
+                url,
+                supply,
+                price,
+                {
+                    gasLimit: 800000,
+                    // nonce: nonce || undefined,
+                }
+            );
             await publish.wait();
 
             console.log(url);
-
-            // // ----------
-            // let test = contract.test();
-            // setTesh(test);
-            // // --------
         } catch (error) {
             console.log(error.message);
             console.log(error);
@@ -83,7 +98,7 @@ export default function Publish() {
 
     async function conso() {
         const test = await metadata();
-        console.log(formInput);
+        console.log(formInput, test);
     }
 
     return (
@@ -112,6 +127,18 @@ export default function Publish() {
                             setFormInput({
                                 ...formInput,
                                 price: e.target.value,
+                            })
+                        }
+                    />
+                    <label>Supply</label>
+                    <input
+                        name="supply"
+                        placeholder="10"
+                        required
+                        onChange={(e) =>
+                            setFormInput({
+                                ...formInput,
+                                supply: e.target.value,
                             })
                         }
                     />
