@@ -46,3 +46,7 @@ artifacts
 
 # private key
 .secret
+
+# infura api key
+.infuraId
+.vercel

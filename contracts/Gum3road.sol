@@ -86,9 +86,6 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
         );
     }
 
-    function transfernewitem(address reciever, uint256 tokenId, uint256 supply) public{
-        _safeTransferFrom(msg.sender, reciever, tokenId, supply, "");
-    }
 
     function createSale(uint256 tokenId) public payable {
         uint256 price = idToEbook[tokenId].price;
@@ -107,16 +104,16 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
     }
 
     function fetchStore() public view returns (ebook[] memory) {
-        ebook[] memory unsoldBooks;
         uint counter = 0;
         uint total = _tokenId.current();
+        ebook[] memory unsoldBooks = new ebook[](total);
         for (uint i = 0; i < total; i++) {
-            // if (idToEbook[i+1].supplyleft > 0) {
+            if (idToEbook[i+1].supplyleft > 0) {
                 uint currentId = i+1;
                 ebook storage currentItem = idToEbook[currentId];
                 unsoldBooks[counter] = currentItem;
                 counter++;
-            // }
+            }
         }
         return unsoldBooks;
     }

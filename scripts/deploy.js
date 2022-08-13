@@ -8,7 +8,7 @@ async function main() {
 
   console.log("contract deployed to: ", deploy.address);
 
-  fs.writeFileSync("./config.js", `export const contractAddress = "${deploy.address}"`)
+  fs.writeFileSync("./address.js", `export const contractAddress = "${deploy.address}"`)
 }
 
 main()
