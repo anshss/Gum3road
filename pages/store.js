@@ -109,6 +109,9 @@ export default function Store() {
         );
     }
 
+    if (loaded == true && !books.length) return (
+        <h1>No items in marketplace</h1>
+        )
     return (
         <>
             <div className={styles.store}>

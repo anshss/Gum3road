@@ -17,9 +17,13 @@ export default function Publish() {
         file: null,
     });
 
-    // const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
-    const projectId = "2DB9ZIXFdYxkwp4AuXUTKYaShp8";
-    const projectSecret = "d8a5c912b14c963145b64bdc8ab93eea";
+    // ------- infura ipfs
+    // const projectId = process.env.projectId
+    // const projectSecret = process.env.projectSecret
+    const projectId = "2DMa3RtqkcV3VwXWx5UQ96hSWsZ";
+    const projectSecret = "8cfa44582a6b744f095946806ce4020f";
+    const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/";
+
     const auth =
         "Basic " +
         Buffer.from(projectId + ":" + projectSecret).toString("base64");
@@ -32,17 +36,18 @@ export default function Publish() {
             authorization: auth,
         },
     });
+    // -------
 
     const router = useRouter();
-
 
     async function handleFile(e) {
         const file = e.target.files[0];
         const name = e.target.name;
         try {
             const added = await client.add(file);
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`;
+            const url = `${ipfsGateway}${added.path}`;
             setFormInput({ ...formInput, [name]: url });
+            console.log(url)
         } catch (error) {
             console.log("Error uploading:", error);
         }
@@ -54,7 +59,7 @@ export default function Publish() {
         const data = JSON.stringify({ name, cover, file });
         try {
             const added = await client.add(data);
-            const metaUrl = `https://ipfs.infura.io/ipfs/${added.path}`;
+            const metaUrl = `${ipfsGateway}${added.path}`;
             return metaUrl;
         } catch (error) {
             console.log("Error uploading:", error);
@@ -63,7 +68,6 @@ export default function Publish() {
 
     async function uploadToIpfs(e) {
         e.preventDefault();
-        try {
             const modal = new web3modal();
             const connection = await modal.connect();
             const provider = new ethers.providers.Web3Provider(connection);
@@ -76,27 +80,18 @@ export default function Publish() {
             const url = await metadata();
             const price = ethers.utils.parseEther(formInput.price);
             const supply = formInput.supply;
-            const publish = await contract.createToken(
-                url,
-                supply,
-                price,
-                {
-                    gasLimit: 800000,
-                    // nonce: nonce || undefined,
-                }
-            );
+            const publish = await contract.createToken(url, supply, price, {
+                gasLimit: 1000000,
+                // nonce: nonce || undefined,
+            });
             await publish.wait();
 
             console.log(url);
-        } catch (error) {
-            console.log(error.message);
-            console.log(error);
-        }
 
-        // router.push('/');
+        router.push('/store');
     }
 
-    async function conso() {
+    async function check() {
         const test = await metadata();
         console.log(formInput, test);
     }
@@ -163,7 +158,7 @@ export default function Publish() {
                         onClick={uploadToIpfs}
                     />
                 </form>
-                <button onClick={conso}>Click me</button>
+                {/* <button onClick={check}>Click me</button> */}
             </div>
         </>
     );

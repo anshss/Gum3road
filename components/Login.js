@@ -8,8 +8,8 @@ export default function Login(){
     const [LoggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        const add = window.localStorage.getItem('address');
-        if(add != undefined){ setLoggedIn(true)}
+        // const add = window.localStorage.getItem('address');
+        // if(add != undefined){ setLoggedIn(true)}
     }, [])
 
     const handleLogin = async () => {
@@ -17,7 +17,7 @@ export default function Login(){
             if (window.ethereum){
                 window.ethereum.request({ method: 'eth_requestAccounts'})
                 .then(result => {
-                    // setLoggedIn(true);
+                    setLoggedIn(true);
                     window.localStorage.setItem('address', result[0]);
                 })
             }

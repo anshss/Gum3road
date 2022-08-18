@@ -5,7 +5,6 @@ import web3modal from "web3modal";
 import { ethers } from "ethers";
 import axios from "axios";
 import { contractAddress } from "../address.js";
-import { saveAs } from "file-saver";
 import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 
 export default function Payout() {
@@ -13,10 +12,8 @@ export default function Payout() {
     const [ItemsSold, setItemsSold] = useState(0);
 
     const [myBooks, setMyBooks] = useState([]);
-
     const [loaded, setLoaded] = useState(false);
 
-    const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/";
 
     useEffect(() => {
         myAssets();
@@ -26,10 +23,11 @@ export default function Payout() {
         const modal = new web3modal();
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
         const contract = new ethers.Contract(
             contractAddress,
             Gum3road.abi,
-            provider
+            signer
         );
         const data = await contract.fetchMyListings();
         console.log(data)
@@ -37,25 +35,16 @@ export default function Payout() {
         const books = await Promise.all(
             data.map(async (i) => {
                 const tokenUri = await contract.uri(i.tokenId.toString());
-                const trimUri = await tokenUri.substring(
-                    tokenUri.lastIndexOf("/") + 1
-                );
-                const meta = await axios.get(`${ipfsGateway}${trimUri}`);
+                const meta = await axios.get(tokenUri);
                 let price = ethers.utils.formatEther(i.price);
-                const coverD = await meta.data.cover.substring(
-                    meta.data.cover.lastIndexOf("/") + 1
-                );
-                const fileD = await meta.data.file.substring(
-                    meta.data.cover.lastIndexOf("/") + 1
-                );
                 let book = {
                     price,
                     name: meta.data.name,
                     tokenId: i.tokenId.toNumber(),
                     creator: i.creator,
                     supplyL: i.supplyleft.toNumber(),
-                    cover: `${ipfsGateway}${coverD}`,
-                    file: `${ipfsGateway}${fileD}`,
+                    cover: meta.data.cover,
+                    file: meta.data.file,
                 };
                 return book;
             })
@@ -89,8 +78,9 @@ export default function Payout() {
             <Dashboard />
             <div className={styles.inventory}>
             <div className={styles.payout}>
-                <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
-                <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2>
+                <h2>Items Listed: {myBooks.length}</h2>
+                {/* <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
+                <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2> */}
             </div>
                 <div className={styles.subinventory}>
                     {myBooks.map((book, i) => (

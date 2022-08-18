@@ -12,10 +12,7 @@ import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 export default function Inventory() {
 
     const [myBooks, setMyBooks] = useState([]);
-
     const [loaded, setLoaded] = useState(false);
-
-    const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/";
 
     useEffect(() => {
         myAssets();
@@ -25,10 +22,11 @@ export default function Inventory() {
         const modal = new web3modal();
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
         const contract = new ethers.Contract(
             contractAddress,
             Gum3road.abi,
-            provider
+            signer
         );
         const data = await contract.fetchInventory();
 
@@ -36,25 +34,16 @@ export default function Inventory() {
         const books = await Promise.all(
             data.map(async (i) => {
                 const tokenUri = await contract.uri(i.tokenId.toString());
-                const trimUri = await tokenUri.substring(
-                    tokenUri.lastIndexOf("/") + 1
-                );
-                const meta = await axios.get(`${ipfsGateway}${trimUri}`);
+                const meta = await axios.get(tokenUri);
                 let price = ethers.utils.formatEther(i.price);
-                const coverD = await meta.data.cover.substring(
-                    meta.data.cover.lastIndexOf("/") + 1
-                );
-                const fileD = await meta.data.file.substring(
-                    meta.data.cover.lastIndexOf("/") + 1
-                );
                 let book = {
                     price,
                     name: meta.data.name,
                     tokenId: i.tokenId.toNumber(),
                     creator: i.creator,
                     supplyL: i.supplyleft.toNumber(),
-                    cover: `${ipfsGateway}${coverD}`,
-                    file: `${ipfsGateway}${fileD}`,
+                    cover: meta.data.cover,
+                    file: meta.data.cover,
                 };
                 return book;
             })
@@ -92,6 +81,7 @@ export default function Inventory() {
             </div>
         );
     }
+
 
     return (
         <>
