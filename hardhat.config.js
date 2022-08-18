@@ -18,6 +18,7 @@ module.exports = {
       accounts: [privateKey]
     },
     mumbai: {
+      allowUnlimitedContractSize: true,
       url: `https://polygon-mumbai.infura.io/v3/${infuraId}`,
       accounts: [privateKey]
     }

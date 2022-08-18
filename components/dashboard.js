@@ -18,7 +18,6 @@ export default function Dashboard(){
                 <Link href='/publish'><h2>Publish</h2></Link>
                 <Link href='/payout'><h2>Payout</h2></Link>
                 <Link href='/inventory'><h2>Inventory</h2></Link>
-                <Link href='/listings'><h2>Listings</h2></Link>
             </div>
         </div>
         </>

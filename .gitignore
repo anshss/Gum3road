@@ -44,9 +44,11 @@ typechain-types
 cache
 artifacts
 
+.vercel
+
+
 # private key
 .secret
 
 # infura api key
 .infuraId
-.vercel

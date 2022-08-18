@@ -27,7 +27,7 @@ $bgclr: rgb(31, 31, 31);
     }
 }
 
-.payout, .inventory, .publish{
+.inventory, .publish{
     background-color: $bgclr;
     color: white;
     padding: 0rem 2.4rem;
@@ -86,10 +86,72 @@ $bgclr: rgb(31, 31, 31);
     flex-direction: row;
     justify-content: space-around;
     padding-top: 6%;
+
+    background-color: $bgclr;
+    color: white;
+    padding: 0rem 2.4rem;
+    min-width: 100%;
 }
 
-.inventory{
-
+.subinventory{
+    background-color: $bgclr;
+    color: black;
+    min-height: 100vh;
+    padding-top: 0rem !important;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem 5%;
 }
 
+.card{
+    background-color: #ffffff;
+    width: 21rem;
+    height: 30rem;
+    margin: 4.5%;
+    padding: 1.6rem;
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
+    .imgDiv{
+        height: 75%;
+        // border: 0.5px solid black;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+
+
+    .detailsDiv{
+        font-size: 0.9rem;
+        margin-top: 2.5%;
+        display: flex;
+        flex-direction: row;
+        // justify-content: space-around;
+        .nestedDiv{
+            margin: auto;
+            p{
+                margin-bottom: 0.5rem;
+            }
+        }
+        p{
+            font-size: 0.9rem;
+        }
+    }
+
+    .buyDiv{
+        height: 10%;
+        margin-top: 2.5%;
+        width: 100%;
+        background-color: #6976d9;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+}

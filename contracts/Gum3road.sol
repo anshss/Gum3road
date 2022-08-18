@@ -36,7 +36,6 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
 
     mapping(uint256 => ebook) idToEbook;
 
-
     function supportsInterface(bytes4 interfaceId)
         public
         view
@@ -46,7 +45,6 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
     {
         return super.supportsInterface(interfaceId);
     }
-
 
     function createToken(
         string memory tokenURI,
@@ -86,8 +84,7 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
         );
     }
 
-
-    function createSale(uint256 tokenId) public payable {
+    function buy(uint256 tokenId) public payable {
         uint256 price = idToEbook[tokenId].price;
         require(msg.value == price);
         require(idToEbook[tokenId].supplyleft >= idToEbook[tokenId].supply);
@@ -105,9 +102,16 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
 
     function fetchStore() public view returns (ebook[] memory) {
         uint counter = 0;
-        uint total = _tokenId.current();
-        ebook[] memory unsoldBooks = new ebook[](total);
-        for (uint i = 0; i < total; i++) {
+        uint length;
+
+        for (uint i = 0; i < _tokenId.current(); i++) {
+            if (idToEbook[i+1].supplyleft > 0) {
+                length++;
+            }
+        }
+
+        ebook[] memory unsoldBooks = new ebook[](length);
+        for (uint i = 0; i < _tokenId.current(); i++) {
             if (idToEbook[i+1].supplyleft > 0) {
                 uint currentId = i+1;
                 ebook storage currentItem = idToEbook[currentId];
@@ -119,26 +123,47 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
     }
 
     function fetchInventory() public view returns (ebook[] memory) {
-        ebook[] memory myBooks;
-        uint32 counter = 0;
-        for (uint32 i = 0; i < _tokenId.current(); i++) {
-            if (idToEbook[i].owner == msg.sender) {
-                myBooks[counter] = idToEbook[i];
-                counter++;
+            uint counter = 0;
+            uint length ;
+
+            for (uint i = 0; i < _tokenId.current(); i++) {
+                if (idToEbook[i+1].owner == msg.sender) {
+                    length++;
+                }
             }
-        }
-        return myBooks;
+
+            ebook[] memory myBooks = new ebook[](length);
+            for (uint i = 0; i < _tokenId.current(); i++) {
+                if (idToEbook[i+1].owner == msg.sender) {
+                    uint currentId = i+1;
+                    ebook storage currentItem = idToEbook[currentId];
+                    myBooks[counter] = currentItem;
+                    counter++;
+                }
+            }
+            return myBooks;
     }
 
     function fetchMyListings() public view returns (ebook[] memory) {
-        ebook[] memory myListedBooks;
-        uint32 counter = 0;
-        for (uint32 i = 0; i < _tokenId.current(); i++) {
-            if (idToEbook[i].creator == msg.sender) {
-                myListedBooks[counter] = idToEbook[i];
+        uint counter = 0;
+        uint length;
+
+        for (uint i = 0; i < _tokenId.current(); i++) {
+            if (idToEbook[i+1].creator == msg.sender) {
+                length++;
+            }
+        }
+
+        ebook[] memory myListedBooks = new ebook[](length);
+        for (uint i = 0; i < _tokenId.current(); i++) {
+            if (idToEbook[i+1].creator == msg.sender) {
+                uint currentId = i+1;
+                ebook storage currentItem = idToEbook[currentId];
+                myListedBooks[counter] = currentItem;
                 counter++;
             }
         }
         return myListedBooks;
     }
 }
+
