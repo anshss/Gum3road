@@ -71,7 +71,7 @@ export default function Store() {
             signer
         );
         const price = ethers.utils.parseUnits(book.price.toString(), "ether");
-        const transaction = await contract.createSale(book.tokenId, {
+        const transaction = await contract.buy(book.tokenId, {
             value: price,
             gasLimit: 1000000,
         });
