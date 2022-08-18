@@ -7,7 +7,6 @@ import axios from "axios";
 import { contractAddress } from "../address.js";
 import { saveAs } from "file-saver";
 import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
-// import Card from '../components/Card'
 
 export default function Inventory() {
     const [myBooks, setMyBooks] = useState([]);
