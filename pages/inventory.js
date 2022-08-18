@@ -10,7 +10,6 @@ import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 // import Card from '../components/Card'
 
 export default function Inventory() {
-
     const [myBooks, setMyBooks] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
@@ -19,7 +18,10 @@ export default function Inventory() {
     }, []);
 
     async function myAssets() {
-        const modal = new web3modal();
+        const modal = new web3modal({
+            network: "mumbai",
+            cacheProvider: true,
+          });
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
@@ -30,7 +32,7 @@ export default function Inventory() {
         );
         const data = await contract.fetchInventory();
 
-        console.log(data)
+        console.log(data);
         const books = await Promise.all(
             data.map(async (i) => {
                 const tokenUri = await contract.uri(i.tokenId.toString());
@@ -82,13 +84,14 @@ export default function Inventory() {
         );
     }
 
-
     return (
         <>
             <Dashboard />
-            <div className={styles.inventory}>
-                <h2>You own {myBooks.length} eBooks</h2>
-                <div className={styles.subinventory}>
+            <div className={styles.pageDiv}>
+                <div className={styles.headDiv}>
+                    <h2>You own {myBooks.length} eBooks</h2>
+                </div>
+                <div className={styles.cardDiv}>
                     {myBooks.map((book, i) => (
                         <Card
                             key={i}

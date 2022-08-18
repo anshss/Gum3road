@@ -68,7 +68,10 @@ export default function Publish() {
 
     async function uploadToIpfs(e) {
         e.preventDefault();
-            const modal = new web3modal();
+            const modal = new web3modal({
+                network: "mumbai",
+                cacheProvider: true,
+              });
             const connection = await modal.connect();
             const provider = new ethers.providers.Web3Provider(connection);
             const signer = provider.getSigner();

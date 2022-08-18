@@ -13,7 +13,7 @@ export default function Dashboard(){
     return(
         <>
         <div className={styles.dashboard}>
-            <h1 className={styles.address}> Address: {address} </h1>
+            {/* <h1 className={styles.address}> Address: {address} </h1> */}
             <div className={styles.btngrp}>
                 <Link href='/publish'><h2>Publish</h2></Link>
                 <Link href='/payout'><h2>Payout</h2></Link>

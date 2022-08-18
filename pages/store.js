@@ -1,4 +1,4 @@
-import styles from "../styles/store.module.scss";
+import styles from "../styles/dashboard.module.scss";
 import { useEffect, useState } from "react";
 import web3modal from "web3modal";
 import { ethers } from "ethers";
@@ -61,7 +61,10 @@ export default function Store() {
     }
 
     async function buyBooks(book) {
-        const modal = new web3modal();
+        const modal = new web3modal({
+            network: "mumbai",
+            cacheProvider: true,
+        });
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
@@ -109,9 +112,12 @@ export default function Store() {
         );
     }
 
-    if (loaded == true && !books.length) return (
-        <h1>No items in marketplace</h1>
-        )
+    if (loaded == true && !books.length)
+        return (
+            <div className={styles.noItem}>
+                <h1>No items in marketplace</h1>
+            </div>
+        );
     return (
         <>
             <div className={styles.store}>

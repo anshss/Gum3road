@@ -20,7 +20,10 @@ export default function Payout() {
     }, []);
 
     async function myAssets() {
-        const modal = new web3modal();
+        const modal = new web3modal({
+            network: "mumbai",
+            cacheProvider: true,
+          });
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
@@ -76,13 +79,13 @@ export default function Payout() {
     return (
         <>
             <Dashboard />
-            <div className={styles.inventory}>
-            <div className={styles.payout}>
+            <div className={styles.pageDiv}>
+            <div className={styles.headDiv}>
                 <h2>Items Listed: {myBooks.length}</h2>
                 {/* <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
                 <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2> */}
             </div>
-                <div className={styles.subinventory}>
+                <div className={styles.cardDiv}>
                     {myBooks.map((book, i) => (
                         <Card
                             key={i}
