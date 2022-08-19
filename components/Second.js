@@ -1,15 +1,29 @@
-import styles from '../styles/home.module.scss'
+import styles from "../styles/home.module.scss";
 
 export default function Second() {
-    return(
+    return (
         <div className={styles.second}>
-            <h2>What this is about?</h2>
-            <p>A place where you can buy/sell ebooks on polygon network</p>
-            <p>Go to Dashboard and publish you ebook now!</p>
-            <p>Fill your brain with words and wisdom from creative authors and storytellers.</p>
-            <p>Learn to code and tools to help you code more productively with our new books</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+            <h2>This is all you need to get started</h2>
+            <div className={styles.boxSpace}>
+                <div className={styles.box}>
+                    <p>Go to Dashboard and publish your first product now!</p>
+                </div>
+                <div className={styles.box}>
+                    <p>Connect any wallet of your choice!</p>
+                    <img className={styles.image} src="payment.png" width="100" height="100" alt="" />
+                </div>
+                <div className={styles.box}>
+                    <p>
+                        Set supply, price, file and a cover image for your new nft!
+                    </p>
+                </div>
+                <div className={styles.box}>
+                    <p>
+                        Purchase a an asset from store and download its
+                        associated file
+                    </p>
+                </div>
+            </div>
         </div>
-    )
+    );
 }

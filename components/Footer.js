@@ -1,16 +1,24 @@
-import styles from '../styles/home.module.scss'
-import Link from 'next/link'
-import EmailIcon from '@mui/icons-material/Email';
+import styles from "../styles/home.module.scss";
+import Link from "next/link";
+import EmailIcon from "@mui/icons-material/Email";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
-export default function Footer(){
-    return(
+export default function Footer() {
+    return (
         <div className={styles.footer}>
             <h1>Gum3road</h1>
             <div className={styles.mails}>
-                {/* <Link href="mailto:anshspvt@gmail.com"><p><img src="mail(24x24)@2x.png" /><span>&nbsp;anshspvt@gmail.com</span></p></Link> */}
-                <Link href="mailto:anshspvt@gmail.com"><p><EmailIcon />&nbsp;&nbsp;anshspvt@gmail.com</p></Link>
+                <EmailIcon />
+                <Link href="mailto:anshspvt@gmail.com">
+                    <p>&nbsp;&nbsp;anshspvt@gmail.com</p>
+                </Link>
             </div>
-            <div></div>
+            <div>
+                <GitHubIcon />
+                <Link href="https://github.com/anshss/PolygonBUIDLIT">
+                    <p>&nbsp;&nbsp;Code</p>
+                </Link>
+            </div>
         </div>
-    )
+    );
 }

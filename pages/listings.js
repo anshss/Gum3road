@@ -14,7 +14,6 @@ export default function Payout() {
     const [myBooks, setMyBooks] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
-
     useEffect(() => {
         myAssets();
     }, []);
@@ -23,7 +22,7 @@ export default function Payout() {
         const modal = new web3modal({
             network: "mumbai",
             cacheProvider: true,
-          });
+        });
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
@@ -33,7 +32,7 @@ export default function Payout() {
             signer
         );
         const data = await contract.fetchMyListings();
-        console.log(data)
+        console.log(data);
 
         const books = await Promise.all(
             data.map(async (i) => {
@@ -78,13 +77,14 @@ export default function Payout() {
 
     return (
         <>
+        <div className={styles.container}>
             <Dashboard />
             <div className={styles.pageDiv}>
-            <div className={styles.headDiv}>
-                <h2>Items Listed: {myBooks.length}</h2>
-                {/* <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
-                <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2> */}
-            </div>
+                <div className={styles.headDiv}>
+                    <h2>Items Listed:&nbsp;&nbsp;{myBooks.length}</h2>
+                    {/* <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
+                     <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2> */}
+                </div>
                 <div className={styles.cardDiv}>
                     {myBooks.map((book, i) => (
                         <Card
@@ -100,6 +100,7 @@ export default function Payout() {
                     ))}
                 </div>
             </div>
+        </div>
         </>
     );
 }

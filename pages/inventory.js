@@ -20,7 +20,7 @@ export default function Inventory() {
         const modal = new web3modal({
             network: "mumbai",
             cacheProvider: true,
-          });
+        });
         const connection = await modal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
@@ -85,24 +85,26 @@ export default function Inventory() {
 
     return (
         <>
-            <Dashboard />
-            <div className={styles.pageDiv}>
-                <div className={styles.headDiv}>
-                    <h2>You own {myBooks.length} eBooks</h2>
-                </div>
-                <div className={styles.cardDiv}>
-                    {myBooks.map((book, i) => (
-                        <Card
-                            key={i}
-                            cover={book.cover}
-                            name={book.name}
-                            price={book.price}
-                            supplyL={book.supplyL}
-                            tokenId={book.tokenId}
-                            creator={book.creator}
-                            file={book.file}
-                        />
-                    ))}
+            <div className={styles.container}>
+                <Dashboard />
+                <div className={styles.pageDiv}>
+                    <div className={styles.headDiv}>
+                        <h2>You own {myBooks.length} Nft</h2>
+                    </div>
+                    <div className={styles.cardDiv}>
+                        {myBooks.map((book, i) => (
+                            <Card
+                                key={i}
+                                cover={book.cover}
+                                name={book.name}
+                                price={book.price}
+                                supplyL={book.supplyL}
+                                tokenId={book.tokenId}
+                                creator={book.creator}
+                                file={book.file}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </>

@@ -120,6 +120,7 @@ export default function Store() {
     return (
         <>
             <div className={styles.store}>
+            <div className={styles.cardDiv}>
                 {books.map((book, i) => (
                     <Card
                         key={i}
@@ -133,6 +134,7 @@ export default function Store() {
                 ))}
             </div>
             {/* <button onClick={check}>Click me </button> */}
+            </div>
         </>
     );
 }

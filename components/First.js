@@ -7,18 +7,18 @@ export default function First() {
         <div className={styles.first}>
             <div className={styles.mainf}>
                 <section>
-                    <h1>Go from zero to $1</h1>
+                    <h1>Go from zero to $1 </h1>
                     <p>
-                        With Gum3road, anyone can earn their first dollar
-                        online. Just start with what you know, see what sticks,
-                        and get paid. It&apos;s easy.
+                        A place where you can mint any file as ERC1155 nft. Now
+                        you can sell the digital services you want—books,
+                        audio, courses, and more—right to your audience as a digital asset.
                     </p>
                     <Link href="/store">
                         <button className={styles.btn}>Store</button>
                     </Link>
                 </section>
-                <sidebar>
-                    {/* <Image src="/ebook2.png" width={300} height={300} /> */}
+                <sidebar className={styles.sidebar}>
+                    <Image src="/Uploading-rafiki.png" width={400} height={400} alt=""/>
                 </sidebar>
             </div>
         </div>

@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@500&family=Source+Sans+Pro&display=swap');
 
 html,
 body {
-  font-family: 'Montserrat', sans-serif;
-  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  font-family: 'helvetica ad', sans-serif;
+}
+h1, h2, h3{
+font-family: 'Helvetica Neue', sans-serif;
 }
 
 a {
