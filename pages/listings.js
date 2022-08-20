@@ -8,8 +8,6 @@ import { contractAddress } from "../address.js";
 import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 
 export default function Payout() {
-    const [Earnings, setEarnings] = useState(0);
-    const [ItemsSold, setItemsSold] = useState(0);
 
     const [myBooks, setMyBooks] = useState([]);
     const [loaded, setLoaded] = useState(false);
@@ -71,6 +69,9 @@ export default function Payout() {
                         <p>Token Id: &nbsp;{prop.tokenId}</p>
                     </div>
                 </div>
+                <div className={styles.buyDiv}>
+                    <p></p>
+                </div>
             </div>
         );
     }
@@ -82,8 +83,6 @@ export default function Payout() {
             <div className={styles.pageDiv}>
                 <div className={styles.headDiv}>
                     <h2>Items Listed:&nbsp;&nbsp;{myBooks.length}</h2>
-                    {/* <h2>Payout earned:&nbsp;&nbsp;💵{Earnings}</h2>
-                     <h2>Ebooks purchased:&nbsp;&nbsp;📘{ItemsSold}</h2> */}
                 </div>
                 <div className={styles.cardDiv}>
                     {myBooks.map((book, i) => (

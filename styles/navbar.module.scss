@@ -11,7 +11,7 @@
     position: fixed;
 
 
-    .rightsect{
+    .rightDiv{
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -23,7 +23,7 @@
   }
 
   
-.rightsect{
+.rightDiv{
   :hover{
     color: #6976d9;
     transition: all .3s ease;

@@ -1,5 +1,3 @@
-import Head from 'next/head';
-import styles from '../styles/home.module.scss';
 import First from '../components/First';
 import Second from '../components/Second';
 import Footer from '../components/Footer';

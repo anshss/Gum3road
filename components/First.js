@@ -5,9 +5,9 @@ import Image from "next/image";
 export default function First() {
     return (
         <div className={styles.first}>
-            <div className={styles.mainf}>
+            <div className={styles.nestDiv}>
                 <section>
-                    <h1>Go from zero to $1 </h1>
+                    <h1>Mint anything to earn your $1 </h1>
                     <p>
                         A place where you can mint any file as ERC1155 nft. Now
                         you can sell the digital services you want—books,

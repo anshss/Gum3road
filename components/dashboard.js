@@ -1,5 +1,4 @@
 import styles from "../styles/dashboard.module.scss";
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -7,16 +6,9 @@ export default function Dashboard() {
     const router = useRouter();
     const currentRoute = router.pathname;
 
-    const [address, setAddress] = useState("");
-
-    useEffect(() => {
-        setAddress(window.localStorage.getItem("address"));
-    }, []);
-
     return (
         <>
             <div className={styles.dashboard}>
-                {/* <h1 className={styles.address}> Address: {address} </h1> */}
                 <div className={styles.btngrp}>
                     <Link href="/publish">
                         <a

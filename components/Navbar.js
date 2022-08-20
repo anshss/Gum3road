@@ -14,7 +14,7 @@ export default function Navbar() {
                     <h2>Gum3road</h2>
                 </Link>
             </div>
-            <div className={styles.rightsect}>
+            <div className={styles.rightDiv}>
                 <Link href="/store">
                     <a className={
                             currentRoute === "/store" ? styles.active : ""

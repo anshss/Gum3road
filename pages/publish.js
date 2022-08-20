@@ -89,18 +89,12 @@ export default function Publish() {
         const supply = formInput.supply;
         const publish = await contract.createToken(url, supply, price, {
             gasLimit: 1000000,
-            // nonce: nonce || undefined,
         });
         await publish.wait();
 
         console.log(url);
 
         router.push("/store");
-    }
-
-    async function check() {
-        const test = await metadata();
-        console.log(formInput, test);
     }
 
     return (
@@ -173,7 +167,6 @@ export default function Publish() {
                             onClick={uploadToIpfs}
                         />
                     </form>
-                    {/* <button onClick={check}>Click me</button> */}
                 </div>
             </div>
         </>

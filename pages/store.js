@@ -8,7 +8,6 @@ import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 
 export default function Store() {
     const [books, setBooks] = useState([]);
-
     const [loaded, setLoaded] = useState(false);
 
     const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/";
@@ -81,10 +80,6 @@ export default function Store() {
         loadEbooks();
     }
 
-    function check() {
-        console.log(books);
-    }
-
     function Card(prop) {
         return (
             <div className={styles.card}>
@@ -101,9 +96,6 @@ export default function Store() {
                         <p>Token Id: &nbsp;{prop.tokenId}</p>
                     </div>
                 </div>
-                {/* <div>
-                    <p>Creator: {prop.creator}</p>
-                </div> */}
                 <div className={styles.buyDiv} onClick={() => buyBooks(prop)}>
                     <p>Buy Now</p>
                 </div>
@@ -114,7 +106,7 @@ export default function Store() {
     if (loaded == true && !books.length)
         return (
             <div className={styles.noItem}>
-                <h1>No items in marketplace</h1>
+                <h1>No items in marketplace :/</h1>
             </div>
         );
     return (
@@ -133,7 +125,6 @@ export default function Store() {
                     />
                 ))}
             </div>
-            {/* <button onClick={check}>Click me </button> */}
             </div>
         </>
     );

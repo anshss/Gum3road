@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/home.module.scss";
-// import LoginIcon from "@mui/icons-material/Login";
-import InputIcon from "@mui/icons-material/Input";
-// import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoginIcon from "@mui/icons-material/Login";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Web3 from "web3";
 import Web3Modal from "web3modal";
@@ -28,13 +26,9 @@ export default function Login() {
                     providerOptions,
                 });
 
-                //-------------
-
                 connection = await web3Modal.connect();
                 const web3 = new Web3(connection);
                 const accounts = await web3.eth.getAccounts();
-
-                //-------------
 
                 await connection.request({
                     method: "wallet_switchEthereumChain",
@@ -70,7 +64,7 @@ export default function Login() {
             {LoggedIn ? (
                 <AccountBalanceWalletIcon />
             ) : (
-                <InputIcon onClick={login} />
+                <LoginIcon onClick={login} />
             )}
         </div>
     );
