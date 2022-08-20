@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.secret
+.infuraId
+
 # dependencies
 /node_modules
 /.pnp
@@ -47,8 +50,3 @@ artifacts
 .vercel
 
 
-# private key
-.secret
-
-# infura api key
-.infuraId
