@@ -18,7 +18,7 @@ export default function First() {
                     </Link>
                 </section>
                 <sidebar className={styles.sidebar}>
-                    <Image src="/Uploading-rafiki.png" width={400} height={400} alt=""/>
+                <a href="https://storyset.com/online"><Image src="/uploading.svg" width={400} height={400} alt=""/></a>
                 </sidebar>
             </div>
         </div>

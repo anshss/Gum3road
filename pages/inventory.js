@@ -7,9 +7,10 @@ import axios from "axios";
 import { contractAddress } from "../address.js";
 import { saveAs } from "file-saver";
 import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
+import file from "@babel/core/lib/transformation/file/file";
 
 export default function Inventory() {
-    const [myBooks, setMyBooks] = useState([]);
+    const [myItems, setMyItems] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
@@ -30,33 +31,30 @@ export default function Inventory() {
             signer
         );
         const data = await contract.fetchInventory();
-
-        console.log(data);
-        const books = await Promise.all(
+        const items = await Promise.all(
             data.map(async (i) => {
                 const tokenUri = await contract.uri(i.tokenId.toString());
                 const meta = await axios.get(tokenUri);
                 let price = ethers.utils.formatEther(i.price);
-                let book = {
+                let item = {
                     price,
                     name: meta.data.name,
                     tokenId: i.tokenId.toNumber(),
                     creator: i.creator,
                     supplyL: i.supplyleft.toNumber(),
                     cover: meta.data.cover,
-                    file: meta.data.cover,
+                    file: meta.data.file,
                 };
-                return book;
+                return item;
             })
         );
-        setMyBooks(books);
+        setMyItems(items);
         setLoaded(true);
     }
 
-    async function Download(book) {
-        const fileUrl = book.file;
-        const name = book.name;
-        console.log(fileUrl);
+    async function Download(_fileName, _fileUrl) {
+        const name = _fileName;
+        const fileUrl = _fileUrl;
         saveAs(fileUrl, name);
     }
 
@@ -76,7 +74,7 @@ export default function Inventory() {
                         <p>Token Id: &nbsp;{prop.tokenId}</p>
                     </div>
                 </div>
-                <div className={styles.buyDiv} onClick={() => Download(prop)}>
+                <div className={styles.buyDiv} onClick={() => Download(prop.name, prop.file)}>
                     <p>Download</p>
                 </div>
             </div>
@@ -89,19 +87,19 @@ export default function Inventory() {
                 <Dashboard />
                 <div className={styles.pageDiv}>
                     <div className={styles.headDiv}>
-                        <h2>You own {myBooks.length} Nft</h2>
+                        <h2>You own {myItems.length} Nft</h2>
                     </div>
                     <div className={styles.cardDiv}>
-                        {myBooks.map((book, i) => (
+                        {myItems.map((item, i) => (
                             <Card
                                 key={i}
-                                cover={book.cover}
-                                name={book.name}
-                                price={book.price}
-                                supplyL={book.supplyL}
-                                tokenId={book.tokenId}
-                                creator={book.creator}
-                                file={book.file}
+                                cover={item.cover}
+                                name={item.name}
+                                price={item.price}
+                                supplyL={item.supplyL}
+                                tokenId={item.tokenId}
+                                creator={item.creator}
+                                file={item.file}
                             />
                         ))}
                     </div>

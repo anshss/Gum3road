@@ -23,7 +23,6 @@ export default function Publish() {
     const projectId = process.env.NEXT_PUBLIC_projectId
     const projectSecret = process.env.NEXT_PUBLIC_projectSecret
     const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/"
-    console.log(projectSecret)
 
     const auth =
         "Basic " +
@@ -94,6 +93,7 @@ export default function Publish() {
 
         router.push("/store");
     }
+
 
     return (
         <>

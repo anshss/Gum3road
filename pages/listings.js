@@ -9,7 +9,7 @@ import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
 
 export default function Payout() {
 
-    const [myBooks, setMyBooks] = useState([]);
+    const [myItems, setMyItems] = useState([]);
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
@@ -30,26 +30,23 @@ export default function Payout() {
             signer
         );
         const data = await contract.fetchMyListings();
-        console.log(data);
 
-        const books = await Promise.all(
+        const items = await Promise.all(
             data.map(async (i) => {
                 const tokenUri = await contract.uri(i.tokenId.toString());
                 const meta = await axios.get(tokenUri);
                 let price = ethers.utils.formatEther(i.price);
-                let book = {
+                let item = {
                     price,
                     name: meta.data.name,
                     tokenId: i.tokenId.toNumber(),
-                    creator: i.creator,
                     supplyL: i.supplyleft.toNumber(),
                     cover: meta.data.cover,
-                    file: meta.data.file,
                 };
-                return book;
+                return item;
             })
         );
-        setMyBooks(books);
+        setMyItems(items);
         setLoaded(true);
     }
 
@@ -82,19 +79,19 @@ export default function Payout() {
             <Dashboard />
             <div className={styles.pageDiv}>
                 <div className={styles.headDiv}>
-                    <h2>Items Listed:&nbsp;&nbsp;{myBooks.length}</h2>
+                    <h2>Items Listed:&nbsp;&nbsp;{myItems.length}</h2>
                 </div>
                 <div className={styles.cardDiv}>
-                    {myBooks.map((book, i) => (
+                    {myItems.map((item, i) => (
                         <Card
                             key={i}
-                            cover={book.cover}
-                            name={book.name}
-                            price={book.price}
-                            supplyL={book.supplyL}
-                            tokenId={book.tokenId}
-                            creator={book.creator}
-                            file={book.file}
+                            cover={item.cover}
+                            name={item.name}
+                            price={item.price}
+                            supplyL={item.supplyL}
+                            tokenId={item.tokenId}
+                            creator={item.creator}
+                            file={item.file}
                         />
                     ))}
                 </div>

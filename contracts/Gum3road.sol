@@ -93,7 +93,7 @@ contract Gum3road is ERC1155URIStorage, ERC1155Holder {
 
         _safeTransferFrom(address(this), msg.sender, tokenId, 1, "");
 
-        uint256 fee = 0.00029 ether;
+        uint256 fee = price/100;
         uint256 remaining = price - fee;
 
         payable(idToEbook[tokenId].creator).transfer(remaining);
