@@ -3,9 +3,6 @@ $Bg: #252525;
 $cardBg: #e5e5e5;
 $cardClr: #000;
 
-// $clr1: #6976d9;
-// $bg1: #252525;
-
 .container{
     display: flex;
     flex-direction: row;
@@ -39,10 +36,22 @@ $cardClr: #000;
     }
 }
 
-.publish{
+.publish, .pageDiv{
+    background-color: $Bg;
+    color: white;
+    flex: 1;
+    padding-top: 14vh;
+}
 
+.publish{
+    padding-top: 18vh;
+    display: flex;
+    flex-wrap: wrap;
+    
     form{
         font-size: 0.8rem;
+        width: 45%;
+        height: 90%;
         background-color:white;
         border: 1px solid #dedede;
         border-radius: 0.3rem;
@@ -50,7 +59,6 @@ $cardClr: #000;
         flex-direction: column;
         justify-content: space-around;
         margin: 0 auto;
-        max-width: 50%;
         padding: 1.4rem 6%;
         padding-bottom: 1.2rem;
         border: 2px solid black;
@@ -95,12 +103,7 @@ $cardClr: #000;
 }
 
 
-.publish, .pageDiv{
-    background-color: $Bg;
-    color: white;
-    flex: 1;
-    padding-top: 14vh;
-}
+
 
 .store{
     background-color: $Bg;

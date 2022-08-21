@@ -7,7 +7,6 @@ import Dashboard from "../components/Dashboard";
 import styles from "../styles/dashboard.module.scss";
 import { contractAddress } from "../address.js";
 import Gum3road from "../artifacts/contracts/Gum3road.sol/Gum3road.json";
-// import dotenv from "dotenv";
 
 export default function Publish() {
     const [formInput, setFormInput] = useState({
@@ -20,13 +19,11 @@ export default function Publish() {
 
     
     // ------- infura ipfs
-    // dotenv.config()
-    // const projectId = process.env.projectId
-    // const projectSecret = process.env.projectSecret
-    // const ipfsGateway = process.env.ipfsGateway
-    const projectId = "2DMa3RtqkcV3VwXWx5UQ96hSWsZ";
-    const projectSecret = "8cfa44582a6b744f095946806ce4020f";
-    const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/";
+
+    const projectId = process.env.NEXT_PUBLIC_projectId
+    const projectSecret = process.env.NEXT_PUBLIC_projectSecret
+    const ipfsGateway = "https://anshs-gum3road.infura-ipfs.io/ipfs/"
+    console.log(projectSecret)
 
     const auth =
         "Basic " +
@@ -40,6 +37,7 @@ export default function Publish() {
             authorization: auth,
         },
     });
+
     // -------
 
     const router = useRouter();
@@ -102,6 +100,7 @@ export default function Publish() {
             <div className={styles.container}>
                 <Dashboard />
                 <div className={styles.publish}>
+                
                     <form>
                         <label>Item Name</label>
                         <input
@@ -114,14 +113,6 @@ export default function Publish() {
                                 })
                             }
                         />
-                        <label>Product</label>
-                        <select name="product">
-                            <option value="Image">Image</option>
-                            <option value="Video">Video</option>
-                            <option value="Audio">Audio</option>
-                            <option value="Pdf">Pdf</option>
-                            <option value="Other">Other format</option>
-                        </select>
                         <label>Price</label>
                         <input
                             name="price"
