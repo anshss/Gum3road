@@ -65,7 +65,7 @@ export default function Store() {
             gasLimit: 1000000,
         });
         await transaction.wait();
-        loadEitems();
+        load();
     }
 
     function Card(prop) {

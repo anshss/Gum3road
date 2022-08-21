@@ -125,7 +125,7 @@ export default function Publish() {
                                 })
                             }
                         />
-                        <label>Supply</label>
+                        <label>Copies</label>
                         <input
                             name="supply"
                             placeholder="10"
@@ -154,7 +154,7 @@ export default function Publish() {
                         <input
                             type="submit"
                             className={styles.submitbtn}
-                            value="Publish🚀"
+                            value="Mint🚀"
                             onClick={uploadToIpfs}
                         />
                     </form>
