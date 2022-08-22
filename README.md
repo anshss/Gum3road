@@ -24,12 +24,22 @@ This is the decentralized version of the [Gumroad.com](https://gumroad.com/). A 
 1. Clone the repo
    ```sh
    git clone https://github.com/anshss/PolygonBUIDLIT.git
+   
    ```
 2. Install NPM packages
    ```sh
+   cd PolygonBUIDLIT
    npm install
    ```
+   
 3. Start project
    ```sh
    npm start
    ```
+   Note - Add a .env file with infura-ipfs key
+
+<br/>
+
+[Video explanation](https://youtu.be/jbozgxCEwqo)
+<br/>
+[Polygonscan contract link](https://mumbai.polygonscan.com/address/0x6112C81f94A759EdAD39B1523C685c0b883c3C9a)
