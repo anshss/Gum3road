@@ -13,11 +13,13 @@ export default function Store() {
     useEffect(() => {
         load();
     }, []);
+    
+    const provider = new ethers.providers.JsonRpcProvider(`https://polygon-mumbai.g.alchemy.com/v2/DhoI-jPECl31oHeoZeqH9_YEQRD6R85K`)
 
     async function load() {
-        const modal = new web3modal();
-        const connection = await modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
+//         const modal = new web3modal();
+//         const connection = await modal.connect();
+//         const provider = new ethers.providers.Web3Provider(connection);
         const contract = new ethers.Contract(
             contractAddress,
             Gum3road.abi,
